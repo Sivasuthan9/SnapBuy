@@ -7,14 +7,22 @@ exports.getProducts = async (req, res, next) => { //asynced
     res.json({
         sucess: true,
         products,
-        message: 'Get Products working!'
     })
 }
 
-exports.getSingleProduct = (req, res, next) => {
-    res.json({
-        sucess: true,
-        message: 'Get Single Product Working!'
-        
-    })
+exports.getSingleProduct = async (req, res, next) => {
+
+        try {
+        const product = await ProductModel.findById(req.params.id);
+
+        res.json({
+            sucess: true,
+            product
+            
+        })}
+        catch(error){
+            res.status(404).json({  // Optional to add status 404 here.
+            sucess: false,
+            message: 'Unable to find the product: '+error.message 
+        })}
 }
