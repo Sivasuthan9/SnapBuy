@@ -4,7 +4,7 @@ node_modules/
 # dotenv config
 .env
 .env.*
-config.env
+*.env
 
 # Logs
 logs/
