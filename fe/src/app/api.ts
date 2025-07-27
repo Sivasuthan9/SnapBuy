@@ -13,4 +13,11 @@ export class Api {
   getProducts(): Observable<any>{ //TODO: Handle with proper typing
     return this.http.get(environment.apiUrl+'/api/v1/product')
   }
+
+  searchProduct(searchText:string): Observable<any>{
+    return this.http.get(environment.apiUrl+'/api/v1/product',
+    {
+      params: {keyword: searchText}
+    })
+  }
 }
