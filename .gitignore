@@ -1,6 +1,15 @@
 # Node dependencies
 node_modules/
 
+# Angular build output
+dist/
+tmp/
+out-tsc/
+
+# Compiled TypeScript files
+*.js
+*.js.map
+
 # dotenv config
 .env
 .env.*
@@ -22,7 +31,15 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Optional: runtime data and pids
+# Runtime data and pids
 pids/
 *.pid
 *.pid.lock
+
+# Angular test coverage reports
+coverage/
+
+# Angular environment files (optional – exclude secrets)
+src/environments/environment.prod.ts
+src/environments/environment.*.ts
+!src/environments/environment.ts
