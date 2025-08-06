@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Api } from '../api';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -18,25 +19,9 @@ export class Home implements OnInit {
          
       }
 
-      ngOnInit(): void {
-          this.api.getProducts().subscribe((data)=>{
-            this.products = data.products;
-          })
-      }
-
-      search(){
-        this.api.searchProduct(this.searchText).subscribe((data)=>{
-          this.products = data.products;
-        })
-      }
-
-      clearSearch(){
-        if (this.searchText == ''){
-          this.search() // This sends seperate API; insted, First fetched products can be used to update current products.
-        }
-      }
-
-      searchByEnter(){
-        this.search()
-      }
-}
+     ngOnInit(): void {
+          this.api.getProducts();
+          this.api.currentProducts.subscribe((data:any) => { // sent data is accessed by subscribe here.
+                      this.products = data.products;
+})
+}}
