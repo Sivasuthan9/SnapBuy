@@ -12,10 +12,12 @@ export class Api {
 
   productSource = new BehaviorSubject([]);
   currentProducts = this.productSource.asObservable(); // ????
+  productTemp = [];
   
   getProducts(){ //TODO: Handle with proper typing
     this.http.get(environment.apiUrl+'/api/v1/product').subscribe((data: any) => {
       this.productSource.next(data)
+      this.productTemp = data;
     })
   }
 
@@ -27,4 +29,11 @@ export class Api {
       this.productSource.next(data)
     })
   }
-}
+
+  clearSearch(searchText:string){
+      if (searchText == ''){
+        this.productSource.next(this.productTemp)
+      }
+    }
+
+  }

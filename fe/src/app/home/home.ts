@@ -18,25 +18,9 @@ export class Home implements OnInit {
          
       }
 
-      ngOnInit(): void {
-          this.api.getProducts().subscribe((data)=>{
-            this.products = data.products;
-          })
-      }
-
-      search(){
-        this.api.searchProduct(this.searchText).subscribe((data)=>{
-          this.products = data.products;
-        })
-      }
-
-      clearSearch(){
-        if (this.searchText == ''){
-          this.search() // This sends seperate API; insted, First fetched products can be used to update current products.
-        }
-      }
-
-      searchByEnter(){
-        this.search()
-      }
-}
+     ngOnInit(): void {
+          this.api.getProducts();
+          this.api.currentProducts.subscribe((data:any) => { // sent data is accessed by subscribe here.
+                      this.products = data.products;
+})
+}}
