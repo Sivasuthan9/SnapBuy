@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Api } from '../api';
 import { FormsModule } from '@angular/forms';
+import { Cart } from '../cart';
 
 @Component({
   selector: 'app-product-detail',
@@ -13,7 +14,11 @@ import { FormsModule } from '@angular/forms';
 export class ProductDetail implements OnInit{
       product:any = null;
       qyt:any=1;
-      constructor(private route:ActivatedRoute, private api:Api){
+      constructor(
+        private route:ActivatedRoute, 
+        private api:Api, 
+        private cart:Cart
+      ){
         
       }
 
@@ -38,5 +43,15 @@ export class ProductDetail implements OnInit{
           return;
         }
         this.qyt = this.qyt - 1;
+      }
+
+      addToCart(){
+        const newCartItem = {
+          product: this.product,
+          qyt: this.qyt
+        }
+      
+      this.cart.addItem(newCartItem)
+        
       }
 }
