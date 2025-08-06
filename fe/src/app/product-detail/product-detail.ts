@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Api } from '../api';
 import { FormsModule } from '@angular/forms';
 import { Cart } from '../cart';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ToastrModule],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css'
 })
@@ -17,7 +18,8 @@ export class ProductDetail implements OnInit{
       constructor(
         private route:ActivatedRoute, 
         private api:Api, 
-        private cart:Cart
+        private cart:Cart,
+        private toastr:ToastrService
       ){
         
       }
@@ -52,6 +54,7 @@ export class ProductDetail implements OnInit{
         }
       
       this.cart.addItem(newCartItem)
+      this.toastr.success('Cart item added.', 'SnapBuy');
         
       }
 }
