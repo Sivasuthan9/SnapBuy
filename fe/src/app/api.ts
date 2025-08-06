@@ -36,4 +36,7 @@ export class Api {
       }
     }
 
+  productById(id:string){
+    return this.http.get(environment.apiUrl+'/api/v1/product/'+id)
+  }
   }
