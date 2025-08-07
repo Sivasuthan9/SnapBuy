@@ -49,6 +49,19 @@ export class Cart implements OnInit{
     estTotal = 0;
 
     ngOnInit(): void {
+        this.calculateCartItems()
+    }
+
+    deleteItem(product_id:string) {
+        const prevItem: any = this.cartItems.find((item:any) => item.product._id == product_id)
+        if (prevItem) {
+        const filteredItems = this.cartItems.filter((item:any) => item.product._id!== product_id);
+        this.cartItems = filteredItems;
+      }
+      this.calculateCartItems()
+  }
+
+    calculateCartItems(){
         this.cartCount = this.cartItems.length;
         this.subTotal = this.cartItems.reduce((acc:any, current:any) => {
                                         return acc + current.qty;
