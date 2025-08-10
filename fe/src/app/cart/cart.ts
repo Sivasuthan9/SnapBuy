@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { cartService } from '../cart.service';
 import { Api } from '../api';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ToastrModule],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
 })
@@ -19,7 +20,8 @@ export class Cart implements OnInit{
     constructor(
       private cartService:cartService, 
       private api:Api,
-      private router:Router
+      private router:Router,
+      private toastr:ToastrService
     ){
 
     }
@@ -46,10 +48,10 @@ export class Cart implements OnInit{
         this.cartCount = this.cartItems.length;
         this.subTotal = this.cartItems.reduce((acc:any, current:any) => {
                                         return acc + current.qty;
-                                      }, 0);
+                                      }, 0).toFixed(2);
         this.estTotal = this.cartItems.reduce((acc:any, current:any) => {
                                         return acc + (current.product.price*current.qty);
-                                      }, 0)
+                                      }, 0).toFixed(2)
                                   
     }
 
@@ -78,7 +80,8 @@ export class Cart implements OnInit{
       const previosCartItem: any = this.cartItems.find((item:any) => item.product._id == product_id)
       let qty = previosCartItem.qty;
 
-      if (qty == previosCartItem.product.stock){
+      if (qty >= previosCartItem.product.stock){
+      this.toastr.error(`${previosCartItem.product.stock} products available.`,'Out of Stock!')
           return;
         }
         qty = qty + 1;
@@ -102,6 +105,7 @@ export class Cart implements OnInit{
           if (data.success){
             const orderId = data.order._id;
             this.router.navigate(['order','success',orderId])
+            this.cartService.updateItem([]);
           }
       })
 
