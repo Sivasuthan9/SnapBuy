@@ -39,4 +39,8 @@ export class Api {
   productById(id:string){
     return this.http.get(environment.apiUrl+'/api/v1/product/'+id)
   }
+
+   createOrder(order:any){
+      return this.http.post(environment.apiUrl+'/api/v1/order/', order);
+   }
   }
