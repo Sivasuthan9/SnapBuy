@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class Cart {
+export class cartService {
   constructor(){
 
   }
@@ -17,10 +17,23 @@ export class Cart {
     const previosCartItem = this.cartItem.find((el:any)=> el.product._id == newCartItem.product._id);
     if (previosCartItem){
         //TODO: Handle Updated Qyt of previousCartItem
+        // update item qty
+        this.cartItem = this.cartItem.map((item: any) => {
+        if (item.product._id == previosCartItem.product._id ) {
+              item.qty = item.qty + 1;
+        }
+        return item})
     }else{
       this.cartItem.push(newCartItem)
     }
     this.itemSource.next(this.cartItem)
+  }
+
+
+    //Updating card items count in the app.html(header)
+  updateItem(item:[]){
+    this.cartItem = item;
+    this.itemSource.next(this.cartItem);
   }
 
 }

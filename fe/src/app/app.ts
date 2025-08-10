@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Api } from './api';
-import { Cart } from './cart';
+import { cartService } from './cart.service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, FormsModule, RouterModule],
@@ -15,10 +15,10 @@ export class App implements OnInit {
   productsTemp:any = [];
   cartCount = 0
 
-    constructor(private api: Api, private cart:Cart){}
+    constructor(private api: Api, private cartService:cartService){}
 
     ngOnInit(): void {
-        this.cart.currentSource.subscribe((data)=> {
+        this.cartService.currentSource.subscribe((data)=> {
           this.cartCount = data.length;
         })
     }
