@@ -52,6 +52,10 @@ export class ProductDetail implements OnInit{
           product: this.product,
           qty: this.qty
         }
+      if (this.product.stock == 0){
+        this.toastr.error('Out of Stock!', 'SnapBuy')
+        return;
+      }
       
       this.cartService.addItem(newCartItem)
       this.toastr.success('Cart item added.', 'SnapBuy');
