@@ -14,7 +14,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 })
 export class ProductDetail implements OnInit{
       product:any = null;
-      qyt:any=1;
+      qty:any=1;
       constructor(
         private route:ActivatedRoute, 
         private api:Api, 
@@ -34,23 +34,23 @@ export class ProductDetail implements OnInit{
       }
 
       increaseQyt(){
-        if (this.qyt == this.product.stock){
+        if (this.qty == this.product.stock){
           return;
         }
-        this.qyt = this.qyt + 1;
+        this.qty = this.qty + 1;
       }
 
       decreaseQyt(){
-        if (this.qyt == 1){
+        if (this.qty == 1){
           return;
         }
-        this.qyt = this.qyt - 1;
+        this.qty = this.qty - 1;
       }
 
       addToCart(){
         const newCartItem = {
           product: this.product,
-          qyt: this.qyt
+          qty: this.qty
         }
       
       this.cartService.addItem(newCartItem)
