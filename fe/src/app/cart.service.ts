@@ -20,7 +20,7 @@ export class cartService {
         // update item qty
         this.cartItem = this.cartItem.map((item: any) => {
         if (item.product._id == previosCartItem.product._id ) {
-              item.qty = item.qty + 1;
+              item.qty = newCartItem.qty;
         }
         return item})
     }else{
