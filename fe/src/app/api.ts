@@ -41,6 +41,6 @@ export class Api {
   }
 
    createOrder(order:any){
-      return this.http.post(environment.apiUrl+'/api/v1/product/', order);
+      return this.http.post(environment.apiUrl+'/api/v1/order/', order);
    }
   }
