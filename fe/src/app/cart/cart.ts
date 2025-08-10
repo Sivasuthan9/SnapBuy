@@ -31,7 +31,8 @@ export class Cart implements OnInit{
         const prevItem: any = this.cartItems.find((item:any) => item.product._id == product_id)
         if (prevItem) {
         const filteredItems = this.cartItems.filter((item:any) => item.product._id!== product_id);
-        this.cartItems = filteredItems;
+        // this.cartItems = filteredItems;
+        this.cartService.updateItem(filteredItems);
       }
       this.calculateCartItems()
   }
