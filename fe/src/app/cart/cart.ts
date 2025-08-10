@@ -47,4 +47,50 @@ export class Cart implements OnInit{
                                       }, 0)
                                   
     }
+
+    decreaseQty(product_id: string){
+      const previosCartItem: any = this.cartItems.find((item:any) => item.product._id == product_id)
+      let qty = previosCartItem.qty;
+
+      if (qty ==1)
+        return;
+      qty = qty -1;
+      if (previosCartItem){
+        //TODO: Handle Updated Qyt of previousCartItem
+        // update item qty
+        this.cartItems = this.cartItems.map((item: any) => {
+        if (item.product._id == previosCartItem.product._id ) {
+              item.qty = qty;
+        }
+        return item})
+    }
+    this.cartService.updateItem(this.cartItems);
+    this.calculateCartItems();
+    }
+
+
+    increaseQty(product_id: string){
+      const previosCartItem: any = this.cartItems.find((item:any) => item.product._id == product_id)
+      let qty = previosCartItem.qty;
+
+      if (qty == previosCartItem.product.stock){
+          return;
+        }
+        qty = qty + 1;
+
+      if (previosCartItem){
+        //TODO: Handle Updated Qyt of previousCartItem
+        // update item qty
+        this.cartItems = this.cartItems.map((item: any) => {
+        if (item.product._id == previosCartItem.product._id ) {
+              item.qty = qty;
+        }
+        return item})
+    }
+    this.cartService.updateItem(this.cartItems);
+    this.calculateCartItems();
+    }
+    
 }
+
+
