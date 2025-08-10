@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { cartService } from '../cart.service';
+import { Api } from '../api';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,7 @@ export class Cart implements OnInit{
     subTotal = 0;
     estTotal = 0;
 
-    constructor(private cartService:cartService){
+    constructor(private cartService:cartService, private api:Api){
 
     }
 
@@ -89,6 +90,16 @@ export class Cart implements OnInit{
     }
     this.cartService.updateItem(this.cartItems);
     this.calculateCartItems();
+    }
+
+    createOrder(){
+      const order = this.cartItems;
+      this.api.createOrder(order).subscribe((data:any)=>{
+          if (data.success){
+            const orderId = data.order._id;
+          }
+      })
+
     }
     
 }
