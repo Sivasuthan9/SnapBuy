@@ -34,7 +34,8 @@ export class ProductDetail implements OnInit{
       }
 
       increaseQyt(){
-        if (this.qty == this.product.stock){
+        if (this.qty >= this.product.stock){
+        this.toastr.error(`${this.product.stock} products available.`,'Out of Stock!')
           return;
         }
         this.qty = this.qty + 1;
@@ -53,12 +54,12 @@ export class ProductDetail implements OnInit{
           qty: this.qty
         }
       if (this.product.stock == 0){
-        this.toastr.error('Out of Stock!', 'SnapBuy')
+        this.toastr.error(`${this.product.stock} products available.`,'Out of Stock!')
         return;
       }
       
       this.cartService.addItem(newCartItem)
-      this.toastr.success('Cart item added.', 'SnapBuy');
+      this.toastr.success('Cart item added.', 'Success!');
         
       }
 }
