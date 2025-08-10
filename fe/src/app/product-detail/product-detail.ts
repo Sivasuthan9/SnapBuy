@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Api } from '../api';
 import { FormsModule } from '@angular/forms';
-import { Cart } from '../cart';
+import { cartService } from '../cart.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -18,7 +18,7 @@ export class ProductDetail implements OnInit{
       constructor(
         private route:ActivatedRoute, 
         private api:Api, 
-        private cart:Cart,
+        private cartService:cartService,
         private toastr:ToastrService
       ){
         
@@ -53,7 +53,7 @@ export class ProductDetail implements OnInit{
           qyt: this.qyt
         }
       
-      this.cart.addItem(newCartItem)
+      this.cartService.addItem(newCartItem)
       this.toastr.success('Cart item added.', 'SnapBuy');
         
       }
